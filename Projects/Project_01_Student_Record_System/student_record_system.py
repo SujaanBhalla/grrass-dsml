@@ -41,7 +41,7 @@ class StudentManager:
 
         self.students.append(student)
 
-        print("\n Student Added Successfully")
+        print("\n  Student Added Successfully")
 
 
     # ======================================================
