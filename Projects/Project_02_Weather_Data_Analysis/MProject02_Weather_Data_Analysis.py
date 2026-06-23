@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 # 1. Load Dataset
 # ==========================================================
 
-url = ""
+url = "https://raw.githubusercontent.com/SujaanBhalla/grrass-dsml/main/Python/temperature_data.json"
 df = pd.read_json(url)
 
 print("Original Dataset")
