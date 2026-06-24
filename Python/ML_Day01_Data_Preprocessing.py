@@ -2,7 +2,9 @@
 # Day 15 - Data Preprocessing Practice
 # Author : Sujaan Bhalla
 # ==========================================================
-# # data pre processing
+# ==========================================================
+
+# data pre processing
 # import pandas as pd
 # import numpy as np
 
@@ -110,18 +112,233 @@
 # print("After Label encoding")
 # print(df_label)
 
-#one hot encoding
+# #one hot encoding
+# import pandas as pd
+# data = {
+#     "colours": ["red" "violet", " lavender"]
+# }
+
+# df = pd.DataFrame(data)
+# print("original data")
+# print(df)
+
+# encoded_df= pd.get_dummies(df,columns=['colours'])
+
+# print("after one hot encoding")
+# print(encoded_df)
+
+
+# # handle missing values
+
+# import pandas as pd
+# import numpy as np
+# import sklearn
+
+# from sklearn.preprocessing import LabelEncoder
+# from sklearn.preprocessing import OneHotEncoder
+
+# # ==========================================================
+# # Dataset
+# # ==========================================================
+
+# data = {
+#     "colours": ["red", "green", "lavender", np.nan]
+# }
+
+# df = pd.DataFrame(data)
+
+# print("\nhandle missing value")
+# print(df)
+
+# # ==========================================================
+# # Handle Null Values
+# # ==========================================================
+
+# print("\nhandle null values")
+
+# df.dropna(inplace=True)
+
+# print(df)
+
+# # ==========================================================
+# # Label Encoding
+# # ==========================================================
+
+# print("\nlabel encoding")
+
+# print("method 1")
+
+# le = LabelEncoder()
+
+# df['color_encoder'] = le.fit_transform(df['colours'])
+
+# print(df)
+
+# print("\nmethod 2")
+
+# df['color_encoder2'] = LabelEncoder().fit_transform(df['colours'])
+
+# print(df)
+
+# print("\nmethod 3")
+
+# df['color_encoder3'] = sklearn.preprocessing.LabelEncoder().fit_transform(
+#     df['colours']
+# )
+
+# print(df)
+
+# # ==========================================================
+# # Drop Label Encoded Columns
+# # ==========================================================
+
+# print("\nbefore drop")
+
+# print(df)
+
+# df.drop(
+#     ['color_encoder', 'color_encoder2', 'color_encoder3'],
+#     axis=1,
+#     inplace=True
+# )
+
+# print("\nafter drop")
+
+# print(df)
+
+# # ==========================================================
+# # One Hot Encoding using Pandas
+# # ==========================================================
+
+# print("\nusing pandas")
+
+# encoded_df = pd.get_dummies(
+#     df,
+#     columns=['colours']
+# )
+
+# print(encoded_df)
+
+# # ==========================================================
+# # One Hot Encoding using Sklearn
+# # ==========================================================
+
+# print("\using sklearn")
+
+# encoder = OneHotEncoder()
+
+# encoded = encoder.fit_transform(
+#     df[['colours']]
+# )
+
+print(encoded.toarray())
+
+#missing values , label encoding , one hot encoding 
+import numpy as np
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
 data = {
-    "colours": ["red" "violet", " lavender"]
+    "age": [10, 20, 30, 40, np.nan],
+    "gender": ["male", "female", "others", "female", np.nan],
+    "name": ["gabriel", "emily", "karan", "camibble", "selviye"]
 }
 
 df = pd.DataFrame(data)
-print("original data")
+
+# Handle missing values in age
+df["age"] = df["age"].fillna(df["age"].mean())
+
+# Show gender column without NaN
+print(df["gender"].dropna())
+
+print("\nUpdated DataFrame")
 print(df)
 
-encoded_df= pd.get_dummies(df,columns=['colours'])
+print("label encoding")
+le = LabelEncoder()
+df["gender1"] = le.fit_transform(df["gender"])
+print(df)
 
-print("after one hot encoding")
+print("one hot encoding")
+print("using sk learn")
+oe = OneHotEncoder()
+oe_e = oe.fit_transformer(df["gender"])
+print(oe_e.toarray())
+
+print("using pandas")
+oe = pd.get_dummies(df, 
+                    df[["gender"]])
+print(oe) 
+
+import numpy as np
+import pandas as pd
+
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+
+# ==========================================================
+# Create Dataset
+# ==========================================================
+
+data = {
+    "age": [10, 20, 30, 40, np.nan],
+    "gender": ["male", "female", "others", "female", np.nan],
+    "name": ["gabriel", "emily", "karan", "camibble", "selviye"]
+}
+
+df = pd.DataFrame(data)
+
+print("Original DataFrame")
+print(df)
+
+# ==========================================================
+# Handle Missing Values
+# ==========================================================
+
+print("\nHandle Missing Values")
+
+# Fill age with mean
+df["age"] = df["age"].fillna(df["age"].mean())
+
+# Fill gender with mode
+df["gender"] = df["gender"].fillna(df["gender"].mode()[0])
+
+print(df)
+
+# ==========================================================
+# Label Encoding
+# ==========================================================
+
+print("\nLabel Encoding")
+
+le = LabelEncoder()
+
+df["gender_encoded"] = le.fit_transform(df["gender"])
+
+print(df)
+
+# ==========================================================
+# One Hot Encoding using Sklearn
+# ==========================================================
+
+print("\nOne Hot Encoding using Sklearn")
+
+encoder = OneHotEncoder()
+
+encoded = encoder.fit_transform(df[["gender"]])
+
+print(encoded.toarray())
+
+# ==========================================================
+# One Hot Encoding using Pandas
+# ==========================================================
+
+print("\nOne Hot Encoding using Pandas")
+
+encoded_df = pd.get_dummies(
+    df,
+    columns=["gender"]
+)
+
 print(encoded_df)
-
