@@ -276,3 +276,11 @@ prediction = model.predict(df1)
 # Predicts the salary for the given experience.
 print("\nPredicted Salary")
 print(prediction)
+
+#polynomial regression
+import numpy as np
+import pandas as pd 
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.model_selection import train_test_split
+
+#dataframe
