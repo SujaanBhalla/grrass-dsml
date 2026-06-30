@@ -364,10 +364,4 @@ probability = model.predict_proba(new_data)[0][1]
 print(f"Prediction for 5 hours: {prediction[0]}")
 print(f"Probability: {probability:.2f}")
 
-
-#train-test split...
-from sklearn.model_selection import train_test_split
-x = [[2],[3],[4],[5],[6]]
-y = [30,40,50,60,70]
-
-#split
+# Note: Train-Test Split & Evaluation Metrics moved to Day04_Train_Test_Split_Evaluation.py
