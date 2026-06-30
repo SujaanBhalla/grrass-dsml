@@ -178,3 +178,236 @@ r2 = r2_score(y_true, y_pred)
 
 print(f"\n4. R2 Score: {r2:.2f}")
 print("   -> How well the model explains the data variability")
+
+# Ridge Regression:
+# Ridge reduces the effect of less important features.
+# It does not usually make feature values exactly zero.
+# It helps reduce overfitting.
+
+# Lasso Regression:
+# Lasso can reduce the effect of less important features to zero.
+# This means it can remove useless features automatically.
+# It helps in feature selection.
+
+# Example:
+# If "garden" is not very important for predicting house price,
+# Lasso may make its coefficient zero.
+# Use:
+# They are used when we have many features, such as house size,
+# location, distance from city, number of bedrooms, garden, and age of house.
+
+# Ridge Regression:
+# Ridge Regression is an improved version of Linear Regression.
+# It is used to reduce overfitting in a regression model.
+
+# In Linear Regression, the model may give very large coefficient values
+# to some features.
+# This can make the model too complex and cause overfitting.
+#lasso vs ridge regression
+# lasso vs ridge regression
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge,Lasso
+from sklearn.metrics import mean_absolute_error,mean_squared_error
+ 
+data = {
+    "size":[1000,1200,1500,1800,2000,2200,2500,2700,3000,3200],
+    "bedrooms":[2,2,3,3,3,4,4,4,5,5],
+    "age":[20,18,15,12,10,8,6,5,4,2],
+    "price":[30,35,45,50,55,60,68,72,80,85]
+}
+df = pd.DataFrame(data)
+print(df)
+ 
+#split data in x and y
+x = df[['size','bedrooms','age']]
+y = df['price']
+ 
+# split data in training and testing
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,random_state=42)
+ 
+# training -> ridge regression
+ridge = Ridge(alpha=1.0)
+ridge.fit(x_train,y_train)
+ 
+# prediction
+ridge_p = ridge.predict(x_test)
+print("x test")
+print(x_test)
+print("prediction")
+print(ridge_p)
+ 
+ 
+# mae
+mae = mean_absolute_error(y_test,ridge_p)
+print("mae =>>>",mae)
+ 
+# mse
+mse = mean_squared_error(y_true, y_pred)
+print(f"\n2. MSE (Mean Squared Error): {mse:.2f}")
+
+# Ridge Regression adds a penalty to the model.
+# This penalty controls the size of the coefficients.
+
+# Penalty:
+# Penalty means extra punishment added to the model when coefficients become too large.
+# Ridge Regression uses L2 penalty.
+
+# L2 Penalty:
+# L2 penalty adds the square of coefficient values to the error.
+# Formula:
+# Cost = Error + alpha * sum(coefficient^2)
+
+# alpha:
+# alpha controls the strength of the penalty.
+# If alpha is small, penalty is weak.
+# If alpha is large, penalty is strong.
+
+# Important:
+# Ridge reduces coefficient values close to zero.
+# But Ridge usually does not make coefficients exactly zero.
+# It keeps all features in the model.
+
+# Use:
+# Ridge Regression is useful when many features are important,
+# but we want to control overfitting.
+
+# Ridge Regression:
+# Ridge Regression gives penalty to large coefficients.
+# Large coefficients become smaller after applying penalty.
+
+# Example before penalty:
+# size = 145
+# bedroom = 80
+# parking = 200
+# garden = 150
+
+# After Ridge penalty:
+# size = 40
+# bedroom = 60
+# parking = 150
+# garden = 120
+
+# Important:
+# Ridge makes coefficients smaller,
+# but it usually does not make them exactly zero.
+# Lasso Regression:
+# Lasso Regression also gives penalty to large coefficients.
+# But Lasso can make some coefficients exactly zero.
+
+# This means Lasso can remove less important features from the model.
+
+# Example:
+# If garden is not useful for predicting house price,
+# Lasso can make garden coefficient = 0.
+
+# Important:
+# Lasso makes coefficients smaller,
+# and some coefficients can become zero.
+
+# training -> lasso regression
+lasso = Lasso(alpha=1.0)
+lasso.fit(x_train, y_train)
+
+# prediction
+lasso_p = lasso.predict(x_test)
+print("lasso prediction")
+print(lasso_p)
+
+# mae
+lasso_mae = mean_absolute_error(y_test, lasso_p)
+print("lasso mae =>>>", lasso_mae)
+
+# mse
+lasso_mse = mean_squared_error(y_test, lasso_p)
+print("lasso mse =>>>", lasso_mse)
+#model intercept 
+print("lasso intercept")
+print(lasso.intercept_)
+#model coefficeet 
+print("lasso coefficients")
+print(lasso.coef_)
+
+# Simple meaning:
+# Lasso also gives penalty to large coefficients.
+# If any feature is not useful, Lasso can make its coefficient zero.
+# Zero coefficient means that feature is removed from the model.
+
+# logistic regression
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+
+data = {
+    "hours": [1, 2, 3, 4, 5, 6, 7],
+    "result": [0, 0, 0, 1, 1, 1, 1]
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+x = df[["hours"]]
+y = df["result"]
+
+log_model = LogisticRegression()
+log_model.fit(x, y)
+
+new_data = pd.DataFrame({
+    "hours": [2.5]
+})
+pred_d = log_model.predict(new_data)
+
+if pred_d[0] == 0:
+    print("fail")
+else:
+    print("pass")
+
+# KNN (K-Nearest Neighbors):
+# KNN is a machine learning algorithm used for classification and regression.
+# In classification, KNN checks the nearest neighbors of a new data point.
+# Then it gives the class which is in majority.
+
+# Example:
+# If nearest students are:
+# CSE, CSE, CSE, DS
+# Then new student will be predicted as CSE.
+
+# Why?
+# Because CSE is in majority.
+
+# K means number of nearest neighbors.
+# If K = 4, model checks 4 nearest neighbors.
+
+# KNN does not train like Linear Regression.
+# It stores the data and compares new data with old data.
+# KNN
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
+
+# data set
+data = {
+    "weight": [100, 110, 120, 170, 180, 190],
+    "fruits": [0, 0, 0, 1, 1, 1]  # 0 => apple and 1 => orange
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+#split x and y
+x = df[["weight"]]
+y = df["fruits"]
+# model
+model = KNeighborsClassifier(n_neighbors=3)
+model.fit(x, y)
+
+# new data
+new_data = pd.DataFrame({
+    "weight": [160]
+})
+
+pred_d = model.predict(new_data)
+print(pred_d)
+
+if pred_d[0] == 0:
+    print("apple")
+else:
+    print("orange")
