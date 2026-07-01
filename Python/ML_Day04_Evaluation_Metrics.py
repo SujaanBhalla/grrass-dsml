@@ -411,3 +411,4 @@ if pred_d[0] == 0:
     print("apple")
 else:
     print("orange")
+
